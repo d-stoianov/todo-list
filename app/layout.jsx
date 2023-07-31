@@ -5,10 +5,14 @@ export const metadata = {
     description: 'Get your day planned with ease !',
 }
 
-export default function RootLayout({ children }) {
+const RootLayout = ({ children }) => {
     return (
         <html lang="en">
-            <body>{children}</body>
+            <body className='gradient'>
+                {children}
+            </body>
         </html>
     )
 }
+
+export default RootLayout

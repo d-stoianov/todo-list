@@ -3,3 +3,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.gradient {
+    background-image: radial-gradient(circle, #191d1d, #181e20, #172024, #192028, #1e202b);
+    width: 100%;
+    height: 100%;
+}
+
+.todo_input {
+    @apply w-[300px] md:w-[450px] rounded-lg outline-none px-3 py-1.5 font-inter placeholder-slate-500 bg-gray-700 text-slate-300
+}
+
+.add_todo {
+    @apply absolute right-[20px] top-[50%] translate-y-[-50%] text-slate-300
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
