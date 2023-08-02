@@ -1,15 +1,30 @@
 "use client"
 
-import { useState } from "react"
+import TodoList from "@/components/Todolist"
+import { useEffect, useState } from "react"
 
 const Home = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [todo, setTodo] = useState("")
+    const [todos, setTodos] = useState([])
 
-    const createTodo = async (event) => {
+    useEffect(() => {
+        const loadTodos = () => {
+            const loadedTodos = JSON.parse(localStorage.getItem("todos")) || [] // in case there are no todos
+            setTodos(loadedTodos)
+        }
+
+        loadTodos()
+    }, [])
+
+    const createTodo = (event) => {
         event.preventDefault()
         setIsSubmitting(true)
-        console.log(todo)
+
+        const newTodos = [todo, ...todos]
+        setTodos(newTodos)
+
+        localStorage.setItem("todos", JSON.stringify(newTodos))
         
         // make api request
 
@@ -24,6 +39,7 @@ const Home = () => {
             <div className="mt-10">
                 <form onSubmit={createTodo} className="relative">
                     <input
+                        value={todo}
                         onChange={(e) => setTodo(e.target.value)}
                         type="text"
                         className="todo_input"
@@ -36,6 +52,7 @@ const Home = () => {
                         Add
                     </button>
                 </form>
+                <TodoList todos={todos} />
             </div>
         </main>
     )
