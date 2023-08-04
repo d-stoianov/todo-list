@@ -30,6 +30,13 @@ const Home = () => {
         .catch(err => console.log(err))
     }
 
+    const onItemChecked = (todo) => {
+        service.toggleCheckTodoById(todo.id)
+        .then(() => service.getAllTodos())
+        .then(res => setTodos(res))
+        .catch(err => console.log(err))
+    }
+
     return (
         <main className="mt-12 flex flex-col items-center h-screen">
             <h1 className="text-center font-bold text-[32px] text-gray-200">
@@ -37,7 +44,7 @@ const Home = () => {
             </h1>
             <div className="mt-10">
                 <TodoForm onCreateItem={saveTodo} />
-                <TodoList onItemDelete={onItemDelete} todos={todos} />
+                <TodoList onItemDelete={onItemDelete} onItemChecked={onItemChecked} todos={todos} />
             </div>
         </main>
     )

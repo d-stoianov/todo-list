@@ -24,6 +24,17 @@ class Service {
             localStorage.setItem("todos", JSON.stringify(todos))
         }
     }
+
+    async toggleCheckTodoById(todoId) {
+        const todos = await this.getAllTodos()
+        const index = todos.findIndex((todo) => {
+            return todoId === todo.id
+        })
+        if (index >= 0) {
+            todos[index].isChecked = !todos[index].isChecked
+            localStorage.setItem("todos", JSON.stringify(todos))
+        }
+    }
 }
 
 export default Service

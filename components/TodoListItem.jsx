@@ -4,7 +4,7 @@ import { MdOutlineRadioButtonUnchecked, MdOutlineRadioButtonChecked } from 'reac
 import { IoMdClose } from 'react-icons/io'
 import { useState } from 'react'
 
-const TodoListItem = ({ onItemDelete, todo }) => {
+const TodoListItem = ({ onItemDelete, onItemChecked, todo }) => {
     const [isChecked, setIsChecked] = useState(false)
 
     return (
@@ -13,8 +13,21 @@ const TodoListItem = ({ onItemDelete, todo }) => {
                 <div className="flex items-center">
                     {
                         !isChecked 
-                        ? <MdOutlineRadioButtonUnchecked size={15} className="text-slate-200 cursor-pointer" />
-                        : <MdOutlineRadioButtonChecked size={15} className="text-slate-200 cursor-pointer" />
+                        ? <MdOutlineRadioButtonUnchecked 
+                            onClick={() => {
+                                onItemChecked(todo) 
+                                setIsChecked(!isChecked)
+                                }
+                            }
+                            size={15}
+                            className="text-slate-200 cursor-pointer" />
+                        : <MdOutlineRadioButtonChecked onClick={() => {
+                            onItemChecked(todo) 
+                            setIsChecked(!isChecked)
+                            }
+                        } 
+                        size={15} 
+                        className="text-slate-200 cursor-pointer" />
                     }
                     
                     <p className={!isChecked ? "text-slate-200 ml-2" : "text-gray-700 ml-2"}>{todo.title}</p>
