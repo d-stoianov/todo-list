@@ -1,11 +1,10 @@
-import Todo from "@/components/Todo"
+import TodoListItem from "@/components/TodoListItem"
 
-const TodoList = ({ todos }) => {
-    console.log(todos)
+const TodoList = ({ onItemDelete, todos }) => {
     return (
         <div className="mt-6">
             {todos.map((todo) => (
-                <Todo key={todo.id} todo={todo} />
+                <TodoListItem onItemDelete={onItemDelete} key={todo.id} todo={todo} />
             ))}
         </div>
     );

@@ -23,6 +23,11 @@ const Home = () => {
         .catch(err => console.log(err))
     }
 
+    const onItemDelete = (todo) => {
+        service.deleteTodoById(todo.id)
+        .then(() => service.getAllTodos())
+        .then(res => setTodos(res))
+        .catch(err => console.log(err))
     }
 
     return (
@@ -32,6 +37,7 @@ const Home = () => {
             </h1>
             <div className="mt-10">
                 <TodoForm onCreateItem={saveTodo} />
+                <TodoList onItemDelete={onItemDelete} todos={todos} />
             </div>
         </main>
     )
