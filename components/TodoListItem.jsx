@@ -33,7 +33,11 @@ const TodoListItem = ({ onItemDelete, onItemChecked, onItemEdited, todo }) => {
                         className="text-slate-200 cursor-pointer" />
                     }
                     
-                    <p className={!isChecked ? "text-slate-200 ml-2" : "text-gray-700 ml-2"}>{todo.title}</p>
+                    <div>
+                        <p className={!isChecked ? "text-slate-200 ml-2" : "text-gray-500 ml-2"}>{todo.title}</p>
+                        <p className={(!isChecked ? "text-slate-500" : "text-slate-700") + " ml-2 text-sm"}>{todo.text}</p>
+                    </div>
+                    
                 </div>
                 <div className="flex items-center gap-2">
                     <FiEdit onClick={() => setShowModal(true)} size={15} className={!isChecked ? "text-slate-200 cursor-pointer" : "text-gray-700 cursor-pointer"} />
