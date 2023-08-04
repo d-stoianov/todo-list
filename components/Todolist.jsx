@@ -1,12 +1,13 @@
 import TodoListItem from "@/components/TodoListItem"
 
-const TodoList = ({ onItemDelete, onItemChecked, todos }) => {
+const TodoList = ({ onItemDelete, onItemChecked, onItemEdited, todos }) => {
     return (
         <div className="mt-6">
             {todos.map((todo) => (
                 <TodoListItem 
                     onItemDelete={onItemDelete} 
                     onItemChecked={onItemChecked} 
+                    onItemEdited={onItemEdited}
                     key={todo.id} 
                     todo={todo} 
                 />

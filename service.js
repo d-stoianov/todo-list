@@ -35,6 +35,19 @@ class Service {
             localStorage.setItem("todos", JSON.stringify(todos))
         }
     }
+
+    async replaceTodo(newTodo) {
+        const todos = await this.getAllTodos()
+        const index = todos.findIndex((todo) => {
+            return newTodo.id === todo.id
+        })
+        if (index >= 0) {
+            todos[index].title = newTodo.title
+            todos[index].text = newTodo.text
+            todos[index].isChecked = newTodo.text
+            localStorage.setItem("todos", JSON.stringify(todos))
+        }
+    }
 }
 
 export default Service

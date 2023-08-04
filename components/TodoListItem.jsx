@@ -2,10 +2,13 @@
 
 import { MdOutlineRadioButtonUnchecked, MdOutlineRadioButtonChecked } from 'react-icons/md'
 import { IoMdClose } from 'react-icons/io'
+import { FiEdit } from 'react-icons/fi'
 import { useState } from 'react'
+import TodoEditModal from "./TodoEditModal"
 
-const TodoListItem = ({ onItemDelete, onItemChecked, todo }) => {
-    const [isChecked, setIsChecked] = useState(false)
+const TodoListItem = ({ onItemDelete, onItemChecked, onItemEdited, todo }) => {
+    const [isChecked, setIsChecked] = useState(todo.isChecked)
+    const [showModal, setShowModal] = useState(false)
 
     return (
         <div>
@@ -32,9 +35,14 @@ const TodoListItem = ({ onItemDelete, onItemChecked, todo }) => {
                     
                     <p className={!isChecked ? "text-slate-200 ml-2" : "text-gray-700 ml-2"}>{todo.title}</p>
                 </div>
-            <IoMdClose onClick={() => onItemDelete(todo)} size={15} className={!isChecked ? "text-slate-200 cursor-pointer" : "text-gray-700 cursor-pointer"} />
+                <div className="flex items-center gap-2">
+                    <FiEdit onClick={() => setShowModal(true)} size={15} className={!isChecked ? "text-slate-200 cursor-pointer" : "text-gray-700 cursor-pointer"} />
+                    <IoMdClose onClick={() => onItemDelete(todo)} size={15} className={!isChecked ? "text-slate-200 cursor-pointer" : "text-gray-700 cursor-pointer"} />
+                </div>
             </div>
-            
+            {
+                showModal && <TodoEditModal todo={todo} onItemEdited={onItemEdited} setShowModal={setShowModal} />
+            }
         </div>
     )
 }

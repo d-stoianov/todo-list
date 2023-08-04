@@ -21,3 +21,20 @@
 button:disabled {
     cursor: not-allowed;
 }
+
+.modal {
+    @apply fixed z-10 left-0 top-0 w-full h-full;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+.modal_content {
+    @apply fixed top-[40%] md:top-[45%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-slate-500 p-1 rounded-md w-[80%] md:w-[50%] h-[45%] md:h-[55%];
+}
+
+.todo_title {
+    @apply font-bold outline-none rounded-md px-2 w-[50%] text-center;
+}
+
+.todo_text {
+    @apply placeholder:text-slate-300 font-bold outline-none rounded-md p-2 w-[70%] min-h-[200px] max-h-[200px] md:min-h-[250px] md:max-h-[250px] overflow-hidden;
+}
