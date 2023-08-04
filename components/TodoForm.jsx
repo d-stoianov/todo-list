@@ -1,27 +1,25 @@
 "use client"
 
 import { useState } from "react"
+import TodoModel from "@/model/TodoModel"
 
-const TodoForm = ({sendForm}) => {
-    const [input, setInput] = useState("")
-
-    const genId = () => {
-        return Math.floor(Math.random() * 1000)
-    }
+const TodoForm = ({onCreateItem}) => {
+    const [title, setTitle] = useState("")
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (input) {
-            sendForm({text: input, id: genId()})
+        if (title) {
+            const todo = new TodoModel(null, title, false) 
+            onCreateItem(todo)
         }
-        setInput("")
+        setTitle("")
     }
 
     return (
         <form onSubmit={(event) => handleSubmit(event)} className="relative">
             <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 type="text"
                 className="todo_input"
                 placeholder="Add your todo text"

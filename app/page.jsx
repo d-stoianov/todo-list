@@ -1,28 +1,28 @@
 "use client"
 
+import Service from "@/service"
 import TodoForm from "@/components/TodoForm"
-import TodoList from "@/components/Todolist"
+import TodoList from "@/components/TodoList"
 import { useEffect, useState } from "react"
 
 const Home = () => {
     const [todos, setTodos] = useState([])
 
-    useEffect(() => {
-        const loadTodos = () => {
-            if (localStorage.getItem("todos")) {
-                const loadedTodos = JSON.parse(localStorage.getItem("todos"))
-                
-                setTodos(loadedTodos)
-            }
-        }
+    const service = new Service()
 
-        loadTodos()
+    useEffect(() => {
+      service.getAllTodos()
+      .then(res => setTodos(res))
+      .catch(err => console.log("err: ", err))
     }, [])
 
     const saveTodo = (todo) => {
-        const newTodos = [todo, ...todos]
-        setTodos(newTodos)
-        localStorage.setItem("todos", JSON.stringify(newTodos))
+        service.createTodo(todo)
+        .then(() => service.getAllTodos())
+        .then(res => setTodos(res))
+        .catch(err => console.log(err))
+    }
+
     }
 
     return (
@@ -31,8 +31,7 @@ const Home = () => {
                 Todo List
             </h1>
             <div className="mt-10">
-                <TodoForm sendForm={saveTodo} />
-                <TodoList todos={todos} />
+                <TodoForm onCreateItem={saveTodo} />
             </div>
         </main>
     )
