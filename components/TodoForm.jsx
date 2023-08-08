@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import TodoModel from "@/model/TodoModel"
 
 const TodoForm = ({onCreateItem}) => {
     const [title, setTitle] = useState("")
@@ -9,7 +8,7 @@ const TodoForm = ({onCreateItem}) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (title) {
-            const todo = new TodoModel(null, title, false) 
+            const todo = { title: title}
             onCreateItem(todo)
         }
         setTitle("")
