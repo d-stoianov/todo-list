@@ -6,7 +6,7 @@ class Service {
     }
 
     async createTodo(todo) {
-        await fetch("/api/todo/new", {
+        await fetch("/api/todo/", {
             method: "POST",
             body: JSON.stringify(todo)
         })
