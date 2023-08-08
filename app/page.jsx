@@ -24,24 +24,26 @@ const Home = () => {
     }
 
     const onItemDelete = (todo) => {
-        service.deleteTodoById(todo.id)
+        service.deleteTodoById(todo._id)
         .then(() => service.getAllTodos())
         .then(res => setTodos(res))
         .catch(err => console.log(err))
     }
 
     const onItemChecked = (todo) => {
-        service.toggleCheckTodoById(todo.id)
+        service.toggleCheckTodoById(todo._id)
         .then(() => service.getAllTodos())
         .then(res => setTodos(res))
         .catch(err => console.log(err))
     }
 
     const onItemEdited = (todo) => {
-        service.replaceTodo(todo)
-        .then(() => service.getAllTodos())
-        .then(res => setTodos(res))
-        .catch(err => console.log(err))
+        if (!todo.title.length <= 0) { // title cannot be empty
+            service.replaceTodo(todo)
+            .then(() => service.getAllTodos())
+            .then(res => setTodos(res))
+            .catch(err => console.log(err))
+        }
     }
 
     return (

@@ -1,52 +1,40 @@
 class Service {
     async getAllTodos() {
-        return JSON.parse(localStorage.getItem("todos")) ?? [] // if no data return empty array
+        const response = await fetch("/api/todo")
+        const todos = await response.json()
+        return todos
     }
 
     async createTodo(todo) {
-        const todos = await this.getAllTodos()
-        let id = 0
-        if(todos.length > 0) {
-            const firstTodo = todos[0]
-            id = firstTodo.id + 1
-        }
-        todo.id = id
-        localStorage.setItem("todos", JSON.stringify([todo, ...todos]))
+        await fetch("/api/todo/new", {
+            method: "POST",
+            body: JSON.stringify(todo)
+        })
     }
 
     async deleteTodoById(todoId) {
-        const todos = await this.getAllTodos()
-        const index = todos.findIndex((todo) => {
-            return todoId === todo.id
+        await fetch(`/api/todo/${todoId}`, {
+            method: "DELETE",
         })
-        if (index >= 0) {
-            todos.splice(index, 1)
-            localStorage.setItem("todos", JSON.stringify(todos))
-        }
     }
 
     async toggleCheckTodoById(todoId) {
-        const todos = await this.getAllTodos()
-        const index = todos.findIndex((todo) => {
-            return todoId === todo.id
+        const response = await fetch(`/api/todo/${todoId}`, {
+            method: "GET"
         })
-        if (index >= 0) {
-            todos[index].isChecked = !todos[index].isChecked
-            localStorage.setItem("todos", JSON.stringify(todos))
-        }
+        const todo = await response.json()
+        
+        await fetch(`/api/todo/${todoId}`, {
+            method: "PATCH",
+            body: JSON.stringify({title: todo.title, description: todo.description, isChecked: !todo.isChecked})
+        })
     }
 
-    async replaceTodo(newTodo) {
-        const todos = await this.getAllTodos()
-        const index = todos.findIndex((todo) => {
-            return newTodo.id === todo.id
+    async replaceTodo(todo) {
+        await fetch(`/api/todo/${todo._id}`, {
+            method: "PATCH",
+            body: JSON.stringify({title: todo.title, description: todo.description, isChecked: todo.isChecked})
         })
-        if (index >= 0) {
-            todos[index].title = newTodo.title
-            todos[index].text = newTodo.text
-            todos[index].isChecked = newTodo.text
-            localStorage.setItem("todos", JSON.stringify(todos))
-        }
     }
 }
 
