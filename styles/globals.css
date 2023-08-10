@@ -10,6 +10,26 @@
     height: 100%;
 }
 
+.loader {
+    width: 30px;
+    height: 30px;
+    border: 5px solid #ffffff;
+    border-bottom-color: #367bdd;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 0.75s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
+
 .todo_input {
     @apply h-12 w-[300px] md:w-[450px] rounded-lg outline-none px-4 pr-[75px] py-3 font-inter placeholder-slate-500 bg-gray-700 text-slate-300;
     resize: none;

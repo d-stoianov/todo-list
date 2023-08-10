@@ -3,17 +3,20 @@
 import Service from "@/service"
 import TodoForm from "@/components/TodoForm"
 import TodoList from "@/components/TodoList"
+import Loading from "@/components/loading"
 import { useEffect, useState } from "react"
 
 const Home = () => {
     const [todos, setTodos] = useState([])
+    const [isLoading, setisLoading] = useState(true)
 
     const service = new Service()
 
     useEffect(() => {
-      service.getAllTodos()
-      .then(res => setTodos(res))
-      .catch(err => console.log("err: ", err))
+        service.getAllTodos()
+        .then(res => setTodos(res))
+        .catch(err => console.log("err: ", err))
+        .finally(() => setisLoading(false))
     }, [])
 
     const saveTodo = (todo) => {
@@ -53,7 +56,18 @@ const Home = () => {
             </h1>
             <div className="mt-10">
                 <TodoForm onCreateItem={saveTodo} />
-                <TodoList onItemDelete={onItemDelete} onItemChecked={onItemChecked} onItemEdited={onItemEdited} todos={todos} />
+                {isLoading ?
+                    <div className="w-full mt-10 flex justify-center items-center">
+                        <Loading />
+                    </div>
+                    :
+                    <TodoList
+                        onItemDelete={onItemDelete}
+                        onItemChecked={onItemChecked}
+                        onItemEdited={onItemEdited}
+                        todos={todos}
+                    />
+                }
             </div>
         </main>
     )
