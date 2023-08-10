@@ -5,6 +5,12 @@ import { useState } from "react"
 const TodoForm = ({onCreateItem}) => {
     const [title, setTitle] = useState("")
 
+    const onEnterPress = (e) => {
+        if (e.key == "Enter") {
+            handleSubmit(e)
+        }
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault()
         if (title) {
@@ -16,8 +22,10 @@ const TodoForm = ({onCreateItem}) => {
 
     return (
         <form onSubmit={(event) => handleSubmit(event)} className="relative">
-            <input
+            <textarea
+                maxLength={50}
                 value={title}
+                onKeyDown={onEnterPress}
                 onChange={(e) => setTitle(e.target.value)}
                 type="text"
                 className="todo_input"

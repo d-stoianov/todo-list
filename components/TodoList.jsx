@@ -17,7 +17,7 @@ const TodoList = ({ onItemDelete, onItemChecked, onItemEdited, todos }) => {
                     onItemChecked={onItemChecked} 
                     onItemEndEditing={onItemEdited}
                     onItemBeginEditing={onItemBeginEditing}
-                    isEditing={currentTodo !== null && currentTodo.id === todo.id}
+                    isEditing={currentTodo !== null && currentTodo._id === todo._id}
                     key={todo._id} 
                     todo={todo} 
                 />
