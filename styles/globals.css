@@ -11,7 +11,7 @@
 }
 
 .todo_input {
-    @apply h-12 w-[300px] md:w-[450px] rounded-lg outline-none px-4 pr-[50px] py-3 font-inter placeholder-slate-500 bg-gray-700 text-slate-300;
+    @apply h-12 w-[300px] md:w-[450px] rounded-lg outline-none px-4 pr-[75px] py-3 font-inter placeholder-slate-500 bg-gray-700 text-slate-300;
     resize: none;
 }
 
@@ -32,9 +32,13 @@ button:disabled {
     @apply fixed top-[40%] md:top-[45%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-slate-500 p-1 rounded-md w-[80%] md:w-[50%] h-[45%] md:h-[55%];
 }
 
-.todo_title {
-    @apply font-bold outline-none rounded-md px-2 text-white bg-transparent;
+.edit_todo_title {
+    @apply font-bold outline-none w-[200px] md:w-[350px] text-white bg-transparent;
     resize: none;
+}
+
+.todo_title {
+    @apply w-[200px] md:w-[350px]
 }
 
 .todo_text {

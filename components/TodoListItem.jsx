@@ -43,20 +43,20 @@ const TodoListItem = ({ onItemDelete, onItemChecked, onItemEndEditing, onItemBeg
                     saveTitle(e.target.value)
                 }}
                 ref={titleInputRef}
-                className="todo_title"
+                className="edit_todo_title"
             >
 
             </input>
     } else {
         title = <p onClick={() => setIsEdititngState(!isEditingState)} 
-            className={!isChecked ? "text-slate-200 ml-2" : "text-gray-500 ml-2"}>
+            className={(!isChecked ? "text-slate-200" : "text-gray-500") + " todo_title"}>
             {todo.title}
         </p>
     }
 
     return (
         <div>
-            <div className="flex justify-between my-2 px-3">
+            <div className="flex justify-between my-3">
                 <div className="flex items-center">
                     {
                         !isChecked 
@@ -67,22 +67,22 @@ const TodoListItem = ({ onItemDelete, onItemChecked, onItemEndEditing, onItemBeg
                                 }
                             }
                             size={15}
-                            className="text-slate-200 cursor-pointer" />
+                            className="text-slate-200 cursor-pointer mx-3" />
                         : <MdOutlineRadioButtonChecked onClick={() => {
                             onItemChecked(todo) 
                             setIsChecked(!isChecked)
                             }
                         } 
                         size={15} 
-                        className="text-slate-200 cursor-pointer" />
+                        className="text-slate-200 cursor-pointer mx-3" />
                     }
                     
-                    <div className={(!isChecked ? "text-slate-500" : "text-slate-700") + " max-w-[200px] md:max-w-[300px] ml-2 text-md break-words"}>
+                    <div className={(!isChecked ? "text-slate-200" : "text-slate-700") + " max-w-[175px] md:max-w-[300px] text-md break-words"}>
                         {title}
                     </div>
                     
                 </div>
-                <div className="flex items-center mx-2 gap-2">
+                <div className="flex items-center mx-4 gap-2">
                     <FiEdit onClick={() => setIsEdititngState(!isEditingState)} size={15} className={(!isChecked ? "text-slate-200 cursor-pointer" : "text-gray-700 cursor-pointer")} />
                     <IoMdClose onClick={() => onItemDelete(todo)} size={15} className={!isChecked ? "text-slate-200 cursor-pointer" : "text-gray-700 cursor-pointer"} />
                 </div>
