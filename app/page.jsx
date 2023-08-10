@@ -3,7 +3,7 @@
 import Service from "@/service"
 import TodoForm from "@/components/TodoForm"
 import TodoList from "@/components/TodoList"
-import Loading from "@/components/loading"
+import Loading from "@/components/Loading"
 import { useEffect, useState } from "react"
 
 const Home = () => {
