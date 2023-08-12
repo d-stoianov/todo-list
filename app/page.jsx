@@ -36,13 +36,17 @@ const Home = () => {
     }
 
     const onItemDelete = (todo) => {
-        const indexToDelete = localTodos.map(el => el.id).indexOf(todo.id)
-        localTodos.splice(indexToDelete, 1)
-
-        service.deleteTodoById(todo._id)
-        .then(() => service.getAllTodos())
-        .then(res => setTodos(res))
-        .catch(err => console.log(err))
+        const indexToDelete = localTodos.findIndex(el => el.id === todo.id)
+    
+        if (indexToDelete !== -1) {
+            const newLocalTodos = localTodos.filter((_, index) => index !== indexToDelete)
+            setLocalTodos(newLocalTodos)
+    
+            service.deleteTodoById(todo._id)
+                .then(() => service.getAllTodos())
+                .then(res => setTodos(res))
+                .catch(err => console.log(err))
+        }
     }
 
     const onItemChecked = (todo) => {
