@@ -38,6 +38,7 @@ const TodoListItem = ({ onItemDelete, onItemChecked, onItemEndEditing, onItemBeg
         title = 
             <input 
                 onKeyDown={onTitleKeyDown}
+                onBlur={() => setIsEdititngState(false)}
                 defaultValue={todo.title}
                 onChange={(e) => {
                     saveTitle(e.target.value)
