@@ -8,25 +8,37 @@ import { useEffect, useState } from "react"
 
 const Home = () => {
     const [todos, setTodos] = useState([])
+    const [localTodos, setLocalTodos] = useState([])
     const [isLoading, setisLoading] = useState(true)
 
     const service = new Service()
 
     useEffect(() => {
         service.getAllTodos()
-        .then(res => setTodos(res))
+        .then(res => {
+            setTodos(res)
+            setLocalTodos(res)
+        })
         .catch(err => console.log("err: ", err))
         .finally(() => setisLoading(false))
     }, [])
 
     const saveTodo = (todo) => {
+        setLocalTodos([...todos, todo])
+
         service.createTodo(todo)
         .then(() => service.getAllTodos())
-        .then(res => setTodos(res))
+        .then(res => {
+            setTodos(res)
+            setLocalTodos(res)
+        })
         .catch(err => console.log(err))
     }
 
     const onItemDelete = (todo) => {
+        const indexToDelete = localTodos.map(el => el.id).indexOf(todo.id)
+        localTodos.splice(indexToDelete, 1)
+
         service.deleteTodoById(todo._id)
         .then(() => service.getAllTodos())
         .then(res => setTodos(res))
@@ -65,7 +77,7 @@ const Home = () => {
                         onItemDelete={onItemDelete}
                         onItemChecked={onItemChecked}
                         onItemEdited={onItemEdited}
-                        todos={todos}
+                        todos={localTodos}
                     />
                 }
             </div>
