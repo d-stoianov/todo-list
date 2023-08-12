@@ -13,7 +13,9 @@ const TodoForm = ({onCreateItem}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (title) {
+        if (!title || title[0] === " ") {
+            alert("Title cannot be empty nor start with a space")
+        } else {
             const todo = { title: title}
             onCreateItem(todo)
         }

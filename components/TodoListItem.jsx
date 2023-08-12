@@ -11,16 +11,19 @@ const TodoListItem = ({ onItemDelete, onItemChecked, onItemEndEditing, onItemBeg
     const titleInputRef = useRef(null)
 
     let title = ""
+    const titleInitValue = todo.title
 
     const saveTitle = (title) => {
         todo.title = title
     }
-
-    const onTitleKeyDown = (e) => {
-        if (e.key === "Enter") {
-            setIsEdititingState(false)
-            onItemEndEditing(todo)
+    
+    const submitEditing = (e) => {
+        if (!e.target.value || e.target.value[0] === " ") {
+            alert("Title cannot be empty nor start with a space")
+            todo.title = titleInitValue
         }
+        setIsEdititingState(false)
+        onItemEndEditing(todo)
     }
 
     useEffect(() => {
@@ -37,11 +40,8 @@ const TodoListItem = ({ onItemDelete, onItemChecked, onItemEndEditing, onItemBeg
     if(isEditingState) {
         title = 
             <input 
-                onKeyDown={onTitleKeyDown}
-                onBlur={() => {
-                    setIsEdititingState(false)
-                    onItemEndEditing(todo)
-                }}
+                onKeyDown={(e) => e.key === "Enter" && submitEditing(e)}
+                onBlur={(e) => submitEditing(e)}
                 defaultValue={todo.title}
                 onChange={(e) => {
                     saveTitle(e.target.value)
