@@ -66,7 +66,7 @@ const Home = () => {
     }
 
     return (
-        <main className="mt-12 flex flex-col items-center h-screen">
+        <main className="my-12 flex flex-col items-center">
             <h1 className="text-center font-bold text-[32px] text-gray-200">
                 Todo List
             </h1>
