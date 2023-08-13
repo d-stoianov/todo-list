@@ -17,8 +17,8 @@ const TodoListItem = ({ onItemDelete, onItemChecked, onItemEndEditing, onItemBeg
         todo.title = title
     }
     
-    const submitEditing = (e) => {
-        if (!e.target.value || e.target.value[0] === " ") {
+    const submitEditing = () => {
+        if (!titleInputRef.current.value || titleInputRef.current.value[0] === " ") {
             alert("Title cannot be empty nor start with a space")
             todo.title = titleInitValue
         }
@@ -40,8 +40,8 @@ const TodoListItem = ({ onItemDelete, onItemChecked, onItemEndEditing, onItemBeg
     if(isEditingState) {
         title = 
             <input 
-                onKeyDown={(e) => e.key === "Enter" && submitEditing(e)}
-                onBlur={(e) => submitEditing(e)}
+                onKeyDown={(e) => e.key === "Enter" && submitEditing()}
+                onBlur={() => submitEditing()}
                 defaultValue={todo.title}
                 onChange={(e) => {
                     saveTitle(e.target.value)
@@ -87,7 +87,7 @@ const TodoListItem = ({ onItemDelete, onItemChecked, onItemEndEditing, onItemBeg
                     
                 </div>
                 <div className="flex items-center mx-4 gap-2">
-                    <FiEdit onClick={() => setIsEdititingState(!isEditingState)} size={15} className={(!isChecked ? "text-slate-200 cursor-pointer" : "text-gray-700 cursor-pointer")} />
+                    <FiEdit onClick={() => isEditingState ? submitEditing() : setIsEdititingState(true)} onMouseDown={(e) => e.preventDefault()} size={15} className={(!isChecked ? "text-slate-200 cursor-pointer" : "text-gray-700 cursor-pointer")} />
                     <IoMdClose onClick={() => onItemDelete(todo)} size={15} className={!isChecked ? "text-slate-200 cursor-pointer" : "text-gray-700 cursor-pointer"} />
                 </div>
             </div>
