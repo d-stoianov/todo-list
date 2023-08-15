@@ -11,6 +11,10 @@ const TodoSchema = new Schema({
     isChecked: {
         type: Schema.Types.Boolean,
     },
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }
 })
 
 const Todo = models.Todo || model("Todo", TodoSchema)
