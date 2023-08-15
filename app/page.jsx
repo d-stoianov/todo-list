@@ -5,23 +5,29 @@ import TodoForm from "@/components/TodoForm"
 import TodoList from "@/components/TodoList"
 import Loading from "@/components/Loading"
 import { useEffect, useState } from "react"
+import { useSession } from "next-auth/react"
 
 const Home = () => {
     const [todos, setTodos] = useState([])
     const [localTodos, setLocalTodos] = useState([])
     const [isLoading, setisLoading] = useState(true)
+    const { data: session } = useSession()
 
     const service = new Service()
 
     useEffect(() => {
-        service.getAllTodos()
-        .then(res => {
-            setTodos(res)
-            setLocalTodos(res)
-        })
-        .catch(err => console.log("err: ", err))
-        .finally(() => setisLoading(false))
-    }, [])
+        if (session?.user.id) {
+            service.getAllTodos()
+            .then(res => {
+                setTodos(res)
+                setLocalTodos(res)
+            })
+            .catch(err => console.log("err: ", err))
+            .finally(() => setisLoading(false))
+        } else {
+            setisLoading(false)
+        }
+    }, [session?.user.id])
 
     const saveTodo = (todo) => {
         setLocalTodos([...todos, todo])
