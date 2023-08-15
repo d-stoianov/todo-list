@@ -1,4 +1,6 @@
 import '@/styles/globals.css'
+import Nav from "@/components/Nav"
+import Provider from "@/components/Provider"
 
 export const metadata = {
     title: 'Todo-list',
@@ -12,7 +14,12 @@ const RootLayout = ({ children }) => {
                 <link rel="icon" href="/favicon.ico" sizes="any" />
             </head>
             <body className='gradient'>
-                {children}
+                <Provider >
+                    <main className="mt-7">
+                        <Nav />
+                        {children}
+                    </main>
+                </Provider>
             </body>
         </html>
     )
