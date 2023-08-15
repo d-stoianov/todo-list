@@ -15,7 +15,7 @@ const RootLayout = ({ children }) => {
             </head>
             <body className='gradient'>
                 <Provider >
-                    <main className="mt-7">
+                    <main>
                         <Nav />
                         {children}
                     </main>

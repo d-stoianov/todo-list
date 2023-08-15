@@ -11,12 +11,12 @@ const Home = () => {
     const [todos, setTodos] = useState([])
     const [localTodos, setLocalTodos] = useState([])
     const [isLoading, setisLoading] = useState(true)
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
 
     const service = new Service()
 
     useEffect(() => {
-        if (session?.user.id) {
+        if (status === "authenticated") {
             service.getAllTodos()
             .then(res => {
                 setTodos(res)
@@ -27,7 +27,7 @@ const Home = () => {
         } else {
             setisLoading(false)
         }
-    }, [session?.user.id])
+    }, [status])
 
     const saveTodo = (todo) => {
         setLocalTodos([...todos, todo])
@@ -72,7 +72,7 @@ const Home = () => {
     }
 
     return (
-        <main className="my-12 flex flex-col items-center">
+        <main className="flex flex-col items-center">
             <h1 className="text-center font-bold text-[32px] text-gray-200">
                 Todo List
             </h1>
